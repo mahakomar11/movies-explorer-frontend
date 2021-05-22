@@ -1,0 +1,14 @@
+.header {
+  min-height: 74px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 70px 0;
+}
+
+.header__logo {
+  height: 38px;
+  width: 38px;
+  display: block;
+  background-image: url('../../images/logo.svg');
+}
