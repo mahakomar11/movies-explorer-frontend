@@ -1,7 +1,42 @@
+import './Footer.css';
+
 function Footer() {
-    return (
-        <div>Це футер</div>
-    )
+  return (
+    <footer className='footer'>
+      <p className='footer__description'>
+        Учебный проект Яндекс.Практикум х BeatFilm.
+      </p>
+      <div className='footer__copyright-block'>
+        <p className='footer__year'>© 2020</p>
+        <nav>
+          <a
+            href='https://praktikum.yandex.ru/'
+            className='footer__link'
+            target='_blank'
+            rel='noreferrer'
+          >
+            Яндекс.Практикум
+          </a>
+          <a
+            href='https://praktikum.yandex.ru/'
+            className='footer__link'
+            target='_blank'
+            rel='noreferrer'
+          >
+            Github
+          </a>
+          <a
+            href='https://praktikum.yandex.ru/'
+            className='footer__link'
+            target='_blank'
+            rel='noreferrer'
+          >
+            Facebook
+          </a>
+        </nav>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;

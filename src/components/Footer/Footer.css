@@ -1,0 +1,40 @@
+.footer {
+  padding-top: 79px;
+}
+
+.footer__description {
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #a0a0a0;
+  margin: 0 auto 20px;
+}
+
+.footer__copyright-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 70px;
+  padding: 20px 0;
+  font-size: 13px;
+  line-height: 16px;
+  border-top: #e8e8e8 1px solid;
+}
+
+.footer__year {
+  margin: 0;
+}
+
+.footer__link {
+  margin-right: 20px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer__link:last-of-type {
+  margin-right: 0px;
+}
+
+.footer__link:hover {
+  text-decoration: underline;
+}
