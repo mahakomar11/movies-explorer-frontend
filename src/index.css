@@ -1,5 +1,5 @@
-@import url("./vendor/normalize.css");
-@import url("./vendor/fonts/fonts.css");
+@import url('./vendor/normalize.css');
+@import url('./vendor/fonts/fonts.css');
 
 body {
   margin: 0;
@@ -18,3 +18,12 @@ code {
 /* * {
   outline: red 1px solid;
 } */
+
+.subtitle {
+  font-weight: normal;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  border-bottom: black 1px solid;
+  min-height: 50px;
+}
