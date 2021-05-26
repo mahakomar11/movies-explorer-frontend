@@ -1,6 +1,10 @@
+import Header from '../Header/Header';
+
 function Movies() {
     return (
-        <div>Тут фильмы</div>
+        <>
+            <Header isLogined={true}/>
+        </>
     )
 }
 
