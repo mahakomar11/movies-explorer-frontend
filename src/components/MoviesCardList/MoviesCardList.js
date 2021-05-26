@@ -1,8 +1,8 @@
 import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
-import moviesCards from '../../temporary/moviesCards';
 
-function MoviesCardList() {
+function MoviesCardList(props) {
+  const { moviesCards } = props;
   if (moviesCards.length === 0)
     return (
       <section className='movies-list'>
