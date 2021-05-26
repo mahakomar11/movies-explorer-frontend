@@ -8,7 +8,11 @@ function MovieCard(props) {
         <h2 className='movie__name'>{movie.name}</h2>
         <p className='movie__duration'>{movie.duration}</p>
       </div>
-      <img className='movie__image' src={movie.image} alt={`Обложка фильма ${movie.name}`}></img>
+      <img
+        className='movie__image'
+        src={movie.image}
+        alt={`Обложка фильма ${movie.name}`}
+      ></img>
       {movie.isSaved ? (
         <button className='movie__button movie__button_saved_yes'></button>
       ) : (

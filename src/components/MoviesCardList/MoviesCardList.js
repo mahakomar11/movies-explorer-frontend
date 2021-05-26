@@ -9,13 +9,19 @@ function MoviesCardList() {
         <p className='movies-list__message'>Фильмы не найдены</p>
       </section>
     );
+
   return (
     <section className='movies-list'>
       <ul className='movies-list__grid'>
-        {moviesCards.map((movie) => (
+        {moviesCards.slice(0, 12).map((movie) => (
           <MovieCard movie={movie} />
         ))}
       </ul>
+      {moviesCards.length > 12 ? (
+        <button className='movies-list__button'>Ещё</button>
+      ) : (
+        <div className='movies-list__filler'></div>
+      )}
     </section>
   );
 }
