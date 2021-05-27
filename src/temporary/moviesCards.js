@@ -14,4 +14,12 @@ moviesCards.unshift({
   image: cover,
 });
 
-export default moviesCards;
+const savedMoviesCards = [
+  {
+    name: 'В погоне за Бэнкси',
+    duration: '27минут',
+    image: cover,
+  },
+];
+
+export { moviesCards, savedMoviesCards };

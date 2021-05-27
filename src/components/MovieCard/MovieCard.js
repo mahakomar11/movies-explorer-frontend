@@ -1,7 +1,7 @@
 import './MovieCard.css';
 
 function MovieCard(props) {
-  const { movie } = props;
+  const { movie, inSaved } = props;
   return (
     <li className='movie'>
       <div className='movie__info'>
@@ -13,7 +13,9 @@ function MovieCard(props) {
         src={movie.image}
         alt={`Обложка фильма ${movie.name}`}
       ></img>
-      {movie.isSaved ? (
+      {inSaved ? (
+        <button className='movie__button movie__button_insaved'></button>
+      ) : movie.isSaved ? (
         <button className='movie__button movie__button_saved_yes'></button>
       ) : (
         <button className='movie__button movie__button_saved_no'>

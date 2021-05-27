@@ -2,7 +2,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-  const { moviesCards } = props;
+  const { moviesCards, inSaved } = props;
   if (moviesCards.length === 0)
     return (
       <section className='movies-list'>
@@ -14,7 +14,7 @@ function MoviesCardList(props) {
     <section className='movies-list'>
       <ul className='movies-list__grid'>
         {moviesCards.slice(0, 12).map((movie) => (
-          <MovieCard movie={movie} />
+          <MovieCard movie={movie} inSaved={inSaved} />
         ))}
       </ul>
       {moviesCards.length > 12 ? (
