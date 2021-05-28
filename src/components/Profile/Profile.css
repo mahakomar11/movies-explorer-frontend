@@ -33,6 +33,12 @@
 .profile__block-value {
   text-align: right;
   margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.profile__block-value:disabled {
+  background: none;
 }
 
 .profile__button {

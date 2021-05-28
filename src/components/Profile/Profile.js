@@ -9,11 +9,11 @@ function Profile() {
         <h1 className='profile__greetings'>Привет, Виталя!</h1>
         <p className='profile__block profile__block_info_name'>
           <p className='profile__block-label'>Имя</p>
-          <p className='profile__block-value'>Виталя</p>
+          <input className='profile__block-value' value='Виталя' disabled/>
         </p>
         <p className='profile__block profile__block_info_email'>
           <p className='profile__block-label'>E-mail</p>
-          <p className='profile__block-value'>pochta@yandex.ru</p>
+          <input className='profile__block-value' value='pochta@yandex.ru' disabled/>
         </p>
         <button className='profile__button profile__button_action_edit'>
           Редактировать
