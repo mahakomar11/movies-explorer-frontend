@@ -3,26 +3,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  padding-bottom: 60px;
 }
 
 .no-page__code {
   margin: 0;
-  margin-top: 40vh; /* TODO: correct */
-  font-family: Inter, Arial;
+  margin-top: 35vh;
   font-size: 140px;
   line-height: 169px;
+  text-align: center;
 }
 
 .no-page__message {
-  margin: 5px 0 184px;
-  font-family: Inter, Arial;
+  margin: 5px 0 0;
   font-size: 16px;
   line-height: 19px;
 }
 
 .no-page__link {
-  margin: 0;
-  font-family: Inter, Arial;
+  margin: 184px 0 60px;
   font-size: 14px;
   line-height: 17px;
   color: inherit;

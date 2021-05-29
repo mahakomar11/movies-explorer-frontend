@@ -19,3 +19,6 @@ code {
   outline: red 1px solid;
 } */
 
+* {
+  font-family: Inter, 'Arial'
+}
