@@ -1,0 +1,14 @@
+.sign-top {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 0;
+  max-width: 396px;
+  padding: 70px 0 0;
+}
+
+.sign-top__greetings {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  margin: 40px 0;
+}
