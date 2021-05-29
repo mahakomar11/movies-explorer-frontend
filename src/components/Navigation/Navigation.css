@@ -15,21 +15,47 @@
   text-decoration: underline;
 }
 
-.nav__button {
-  width: 76px;
+.nav__link_logined {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.29;
+}
+
+.nav__link_activated {
+  font-weight: 500;
+}
+
+.nav__link_for_account {
+  display: inline-block;
+  width: 100px;
   height: 32px;
   margin-left: 30px;
   font-weight: 500;
+  line-height: 32px;
+  color: #000000;
+  background: #f9f9f9;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.nav__link_for_signin {
+  display: inline-block;
+  width: 76px;
+  height: 32px;
+  margin-left: 10px;
+  font-weight: 500;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 32px;
   color: #ffffff;
   background: #000000;
   border-radius: 3px;
-  border: 0px;
   cursor: pointer;
+  text-align: center;
 }
 
-.nav__button:hover {
+.nav__link_for_signin:hover {
+  text-decoration: none;
   opacity: 80%;
 }
 
@@ -43,12 +69,3 @@
   border-radius: 20px;
 }
 
-.nav__link_logined {
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 1.29;
-}
-
-.nav__link_activated {
-  font-weight: 500;
-}

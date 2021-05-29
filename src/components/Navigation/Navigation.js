@@ -13,7 +13,7 @@ function Navigation(props) {
         <Link to='/saved-movies' className='nav__link nav__link_logined'>
           Сохранённые фильмы
         </Link>
-        <button className='nav__button nav__button_logined'>Аккаунт</button>
+        <Link className='nav__link nav__link_logined nav__link_for_account'>Аккаунт</Link>
       </nav>
     );
   else
@@ -22,7 +22,7 @@ function Navigation(props) {
         <Link to='/signup' className='nav__link'>
           Регистрация
         </Link>
-        <button className='nav__button'>Войти</button>
+        <Link to='/signin' className='nav__link nav__link_for_signin'>Войти</Link>
       </nav>
     );
 }
