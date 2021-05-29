@@ -20,17 +20,17 @@ function SignForm(props) {
 
   return (
     <form className='sign-form'>
-      <div className='sign-form__block'>
+      <fieldset className='sign-form__fieldset'>
         {props.place === 'signup' && (
           <>
             <label className='sign-form__label' for='name'>
               Имя
             </label>
             <input
-              name='name'
-              type='text'
-              id='name'
               className='sign-form__input'
+              type='text'
+              name='name'
+              id='name'
               minLength={2}
               maxLength={40}
               required
@@ -42,10 +42,10 @@ function SignForm(props) {
           E-mail
         </label>
         <input
-          name='email'
-          type='email'
-          id='email'
           className='sign-form__input'
+          type='email'
+          name='email'
+          id='email'
           minLength={2}
           required
         />
@@ -54,24 +54,24 @@ function SignForm(props) {
           Пароль
         </label>
         <input
-          name='password'
-          type='password'
-          id='password'
           className='sign-form__input'
+          type='password'
+          name='password'
+          id='password'
           minLength={8}
           required
         />
         <span className='sign-form__error-message' id='password-error'></span>
-      </div>
-      <div className='sign-form__block'>
-        <button type='submit' className='sign-form__button'>
+      </fieldset>
+      <fieldset className='sign-form__fieldset'>
+        <button className='sign-form__button' type='submit'>
           {props.place === 'signup' ? 'Зарегистрироваться' : 'Войти'}
         </button>
         <p className='sign-form__message'>
           {message}
           {link}
         </p>
-      </div>
+      </fieldset>
     </form>
   );
 }

@@ -7,9 +7,11 @@
   justify-content: space-between;
 }
 
-.sign-form__block {
+.sign-form__fieldset {
   display: flex;
   flex-direction: column;
+  border: none;
+  padding: 0;
 }
 
 .sign-form__message {
@@ -50,6 +52,11 @@
   padding: 0;
   height: 45px;
   margin-top: 30px;
+  cursor: pointer;
+}
+
+.sign-form__button:hover {
+  opacity: 0.8;
 }
 
 .sign-form__message {

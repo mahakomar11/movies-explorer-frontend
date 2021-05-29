@@ -10,13 +10,26 @@ function Profile() {
         <fieldset className='profile__fieldset'>
           <label className='profile__label'>
             Имя
-            <input className='profile__input' value='Виталя' disabled/>
+            <input
+              className='profile__input'
+              type='text'
+              name='name'
+              value='Виталя'
+              minLength={2}
+              maxLength={40}
+              required
+              disabled
+            />
           </label>
           <label className='profile__label'>
             E-mail
             <input
               className='profile__input'
+              type='email'
+              name='email'
               value='pochta@yandex.ru'
+              minLength={2}
+              required
               disabled
             />
           </label>
