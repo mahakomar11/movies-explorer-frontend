@@ -3,7 +3,7 @@ import vitalya from '../../images/vitalya.svg';
 
 function AboutMe() {
   return (
-    <section className='about-me'>
+    <section className='about-me' id='about-me'>
       <h2 className='subtitle'>Студент</h2>
       <div className='about-me__container'>
         <div className='about-me__info'>
