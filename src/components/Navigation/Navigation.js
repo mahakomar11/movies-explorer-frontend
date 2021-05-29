@@ -13,7 +13,7 @@ function Navigation(props) {
         <Link to='/saved-movies' className='nav__link nav__link_logined'>
           Сохранённые фильмы
         </Link>
-        <Link className='nav__link nav__link_logined nav__link_for_account'>Аккаунт</Link>
+        <Link to='/profile' className='nav__link nav__link_logined nav__link_for_account'>Аккаунт</Link>
       </nav>
     );
   else

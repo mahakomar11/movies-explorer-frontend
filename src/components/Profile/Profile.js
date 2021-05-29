@@ -5,7 +5,7 @@ function Profile() {
   return (
     <section className='profile'>
       <Header isLogined={true} />
-      <h1 className='profile__greetings'>Привет, Виталя!</h1>
+      <h1 className='profile__greetings'>Привет, Маруся!</h1>
       <form className='profile__form'>
         <fieldset className='profile__fieldset'>
           <label className='profile__label'>

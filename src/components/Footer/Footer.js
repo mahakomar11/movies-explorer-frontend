@@ -18,7 +18,7 @@ function Footer() {
             Яндекс.Практикум
           </a>
           <a
-            href='https://praktikum.yandex.ru/'
+            href='https://github.com/mahakomar11'
             className='footer__link'
             target='_blank'
             rel='noreferrer'
@@ -26,7 +26,7 @@ function Footer() {
             Github
           </a>
           <a
-            href='https://praktikum.yandex.ru/'
+            href='https://www.linkedin.com/in/maria-komarova-23265318b/'
             className='footer__link'
             target='_blank'
             rel='noreferrer'
