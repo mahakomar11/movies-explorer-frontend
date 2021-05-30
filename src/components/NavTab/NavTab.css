@@ -21,3 +21,10 @@
 .nav-tab__link:hover {
   text-decoration: none;
 }
+
+@media screen and (max-width: 540px) {
+  .nav-tab__link {
+    font-size: 11px;
+    margin-right: 24px;
+  }
+}
