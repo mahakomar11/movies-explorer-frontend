@@ -8,7 +8,7 @@ function Footer() {
       </p>
       <div className='footer__copyright-block'>
         <p className='footer__year'>© 2020</p>
-        <nav>
+        <nav className='footer__nav'>
           <a
             href='https://praktikum.yandex.ru/'
             className='footer__link'
