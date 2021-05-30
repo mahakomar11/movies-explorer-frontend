@@ -10,6 +10,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 
 // TODO: адаптировать
 // TODO: сжать изображения
+// TODO: перевести line-height в относительные величины
 
 function App() {
   return (
