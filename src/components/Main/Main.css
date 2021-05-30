@@ -5,4 +5,12 @@
   letter-spacing: -0.04em;
   border-bottom: black 1px solid;
   min-height: 50px;
+  margin: 0;
+}
+
+@media screen and (max-width: 540px) {
+  .main__subtitle {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
