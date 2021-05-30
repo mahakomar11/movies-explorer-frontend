@@ -2,12 +2,32 @@
   padding: 50px 70px 125px;
 }
 
+@media screen and (max-width: 768px) {
+  .portfolio {
+    padding: 50px 50px 90px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .portfolio {
+    padding: 50px 14px 70px;
+  }
+}
+
 .portfolio__title {
   margin: 0 0 30px;
   font-weight: normal;
   font-size: 18px;
   line-height: 1.11;
   color: #a0a0a0;
+}
+
+@media screen and (max-width: 540px) {
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 1.43;
+    margin-bottom: 10px;
+  }
 }
 
 .portfolio__link {
@@ -18,6 +38,19 @@
   letter-spacing: -0.04em;
   color: #000000;
   text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+  .portfolio__link {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 67px;
+  }
 }
 
 .portfolio__link:hover {
