@@ -2,14 +2,48 @@
   padding: 110px 70px 50px;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me {
+    padding: 90px 50px 40px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .about-me {
+    padding: 70px 14px 19px;
+  }
+}
+
 .about-me__container {
   display: flex;
   margin-top: 66px;
   justify-content: space-between;
+  flex-wrap: wrap-reverse;
+  align-items: start;
+}
+
+@media screen and (max-width: 540px) {
+  .about-me__container {
+    margin-top: 60px;
+  }
 }
 
 .about-me__info {
-  max-width: 600px;
+  width: 52.6%;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__info {
+    width: calc(100% - 255px - 49px);
+    margin-right: 49px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__info {
+    width: 100%;
+    margin-right: 0;
+  }
 }
 
 .about-me__photo {
@@ -20,12 +54,43 @@
   border-radius: 10px;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__photo {
+    width: 100%;
+    height: 352px;
+  }
+}
+
 .about-me__name {
   font-weight: normal;
   font-size: 50px;
   line-height: 1.16;
   letter-spacing: -0.04em;
   margin: 0 0 18px 0;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__name {
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__name {
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }
 }
 
 .about-me__profession {
@@ -36,11 +101,44 @@
   margin: 0 0 26px 0;
 }
 
+@media screen and (max-width: 768px) {
+  .about-me__profession {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__profession {
+    font-size: 11px;
+    line-height: 1.45;
+    margin-bottom: 20px;
+  }
+}
+
 .about-me__description {
   font-size: 14px;
   line-height: 1.57;
   color: #000000;
   margin: 0 0 99px 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .about-me__description {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 87px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about-me__description {
+    font-size: 11px;
+    line-height: 1.45;
+    margin-bottom: 40px;
+  }
 }
 
 .about-me__link {
@@ -50,6 +148,12 @@
   color: #000000;
   text-decoration: none;
   margin-right: 20px;
+}
+
+@media screen and (max-width: 26px) {
+  .about-me__link {
+    margin-right: 26px;
+  }
 }
 
 .about-me__link:hover {
