@@ -6,9 +6,28 @@
   padding: 70px 0 0;
 }
 
+@media screen and (max-width: 768px) {
+  .sign-top {
+    padding-top: 236px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .sign-top {
+    padding-top: 56px;
+    align-items: center;
+  }
+}
+
 .sign-top__greetings {
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
   margin: 40px 0;
+}
+
+@media screen and (max-width: 540px) {
+  .sign-top__greetings {
+    margin: 50px 0 80px;
+  }
 }

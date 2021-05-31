@@ -7,6 +7,19 @@
   justify-content: space-between;
 }
 
+@media screen and (max-width: 768px) {
+  .sign-form {
+    min-height: calc(100vh - 379px);
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .sign-form {
+    max-width: 260px;
+    min-height: calc(100vh - 253px);
+  }
+}
+
 .sign-form__fieldset {
   display: flex;
   flex-direction: column;
@@ -20,7 +33,7 @@
 
 .sign-form__input {
   font-size: 14px;
-  line-height: 34px;
+  line-height: calc(17px + 2 * 10px);
   border: none;
   border-bottom: #e8e8e8 1px solid;
   margin: -5px 0 0;
@@ -55,6 +68,13 @@
   cursor: pointer;
 }
 
+@media screen and (max-width: 540px) {
+  .sign-form__button {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
+
 .sign-form__button:hover {
   opacity: 0.8;
 }
@@ -67,6 +87,20 @@
   margin: 16px 0 70px;
 }
 
+@media screen and (max-width: 768px) {
+  .sign-form__message {
+    margin-bottom: 232px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .sign-form__message {
+    font-size: 12px;
+    line-height: 15px;
+    margin: 14px 0 30px;
+  }
+}
+
 .sign-form__link {
   color: #000000;
   text-decoration: none;
@@ -77,7 +111,7 @@
 }
 
 .sign-form__error-message {
-  margin: 6px 0 12px;
+  margin: 6px 0 calc(24px - 2 * 6px);
   font-size: 10px;
   line-height: 12px;
   color: #ff4062;
