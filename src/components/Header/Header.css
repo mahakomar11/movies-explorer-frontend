@@ -4,6 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 70px 0;
+  position: relative;
 }
 
 @media screen and (max-width: 768px) {
@@ -23,4 +24,30 @@
   width: 38px;
   display: block;
   background-image: url('../../images/logo.svg');
+}
+
+.header__burger {
+  display: none;
+  background: none;
+  background-image: url('../../images/burger-menu.svg');
+  background-position: center;
+  background-size: 100%;
+  border: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .header__burger {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .header__burger {
+    width: 40px;
+    height: 43px;
+  }
 }
