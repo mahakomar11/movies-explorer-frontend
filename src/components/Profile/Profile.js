@@ -5,8 +5,8 @@ function Profile() {
   return (
     <section className='profile'>
       <Header isLogined={true} />
-      <h1 className='profile__greetings'>Привет, Маруся!</h1>
       <form className='profile__form'>
+        <h1 className='profile__greetings'>Привет, Маруся!</h1>
         <fieldset className='profile__fieldset'>
           <label className='profile__label'>
             Имя
@@ -34,7 +34,7 @@ function Profile() {
             />
           </label>
         </fieldset>
-        <fieldset className='profile__fieldset'>
+        <fieldset className='profile__fieldset profile__fieldset_content_buttons'>
           <button className='profile__button profile__button_action_edit'>
             Редактировать
           </button>
