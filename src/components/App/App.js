@@ -8,9 +8,6 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
-// TODO: адаптировать
-// TODO: сжать изображения
-// TODO: перевести line-height в относительные величины
 
 function App() {
   return (
