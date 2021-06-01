@@ -11,7 +11,7 @@ function Header(props) {
     <header className='header'>
       <Link to='/' className='header__logo'></Link>
       <Navigation isLogined={props.isLogined}/>
-      <button className='header__burger' onClick={showNav}></button>
+      {props.isLogined && <button className='header__burger' onClick={showNav}></button>}
     </header>
   );
 }
