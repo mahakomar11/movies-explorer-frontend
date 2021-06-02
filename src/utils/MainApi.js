@@ -2,9 +2,9 @@ class MainApi {
   constructor(config) {
     this._baseUrl = config.baseUrl;
     this._headers = config.headers;
-    this._moviesUrl = `${this._baseurl}/movies`;
-    this._profileUrl = `${this._baseurl}/users/me`;
-    this._signupUrl = `${this._baseurl}/signup`;
+    this._moviesUrl = `${this._baseUrl}/movies`;
+    this._profileUrl = `${this._baseUrl}/users/me`;
+    this._signupUrl = `${this._baseUrl}/signup`;
     this._loginUrl = `${this._baseUrl}/signin`;
   }
 
@@ -20,7 +20,7 @@ class MainApi {
 
   loadLoginedUser(jwt) {
     this._headers.Authorization = `Bearer ${jwt}`;
-    return fetch(this._userUrl, {
+    return fetch(this._profileUrl, {
       headers: this._headers,
     }).then((res) => this._handleResponse(res));
   }

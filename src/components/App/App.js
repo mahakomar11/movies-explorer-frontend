@@ -12,13 +12,29 @@ import mainApi from '../../utils/MainApi';
 
 function App() {
   const history = useHistory();
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isLogined, setIsLogined] = React.useState(false);
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      mainApi
+        .loadLoginedUser(jwt)
+        .then((data) => {
+          if (data) {
+            console.log(data);
+            setIsLogined(true);
+            history.push('/movies');
+          }
+        })
+        .catch((err) => console.log(err.message));
+    }
+  }, [history, isLogined]);
 
   function handleLogin(loginData) {
     mainApi
       .loginUser(loginData)
       .then((data) => {
-        setLoggedIn(true);
+        setIsLogined(true);
         localStorage.setItem('jwt', data.token);
         history.push('/movies');
       })
@@ -29,8 +45,9 @@ function App() {
 
   function handleLogout() {
     localStorage.removeItem('jwt');
-    setLoggedIn(false);
+    setIsLogined(false);
     mainApi.logoutUser();
+    history.push('/');
   }
   // React.useEffect(() => {
   //   mainApi
@@ -41,7 +58,7 @@ function App() {
   return (
     <Switch>
       <Route exact path='/'>
-        <Main />
+        <Main isLogined={isLogined}/>
       </Route>
       <Route exact path='/movies'>
         <Movies />
@@ -50,7 +67,7 @@ function App() {
         <SavedMovies />
       </Route>
       <Route exact path='/profile'>
-        <Profile />
+        <Profile onLogout={handleLogout}/>
       </Route>
       <Route exact path='/signin'>
         <Login onLogin={handleLogin}/>

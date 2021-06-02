@@ -1,7 +1,8 @@
 import './Profile.css';
 import Header from '../Header/Header';
 
-function Profile() {
+function Profile(props) {
+  const { onLogout } = props;
   return (
     <section className='profile'>
       <Header isLogined={true} />
@@ -38,7 +39,10 @@ function Profile() {
           <button className='profile__button profile__button_action_edit'>
             Редактировать
           </button>
-          <button className='profile__button profile__button_action_logout'>
+          <button
+            className='profile__button profile__button_action_logout'
+            onClick={onLogout}
+          >
             Выйти из аккаунта
           </button>
         </fieldset>
