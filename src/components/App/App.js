@@ -9,6 +9,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import mainApi from '../../utils/MainApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const history = useHistory();
@@ -16,6 +17,7 @@ function App() {
 
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
+    console.log('load jwt');
     if (jwt) {
       mainApi
         .loadLoginedUser(jwt)
@@ -66,21 +68,21 @@ function App() {
       <Route exact path='/'>
         <Main isLogined={isLogined} />
       </Route>
-      <Route exact path='/movies'>
-        <Movies />
-      </Route>
-      <Route exact path='/saved-movies'>
-        <SavedMovies />
-      </Route>
-      <Route exact path='/profile'>
-        <Profile onLogout={handleLogout} />
-      </Route>
       <Route exact path='/signin'>
         <Login onLogin={handleLogin} />
       </Route>
       <Route exact path='/signup'>
-        <Register onRegister={handleRegister}/>
+        <Register onRegister={handleRegister} />
       </Route>
+      <ProtectedRoute exact path='/movies' isLogined={isLogined}>
+        <Movies />
+      </ProtectedRoute>
+      <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
+        <SavedMovies />
+      </ProtectedRoute>
+      <ProtectedRoute exact path='/profile' isLogined={isLogined}>
+        <Profile onLogout={handleLogout} />
+      </ProtectedRoute>
       <Route path='*'>
         <PageNotFound />
       </Route>
