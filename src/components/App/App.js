@@ -49,16 +49,22 @@ function App() {
     mainApi.logoutUser();
     history.push('/');
   }
-  // React.useEffect(() => {
-  //   mainApi
-  //     .loginUser({ email: 'isis@email.com', password: '88888888' })
-  //     .then((data) => console.log(data));
-  // }, []);
+
+  function handleRegister(registerData) {
+    mainApi
+      .registerUser(registerData)
+      .then((data) => {
+        history.push('/signin');
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
 
   return (
     <Switch>
       <Route exact path='/'>
-        <Main isLogined={isLogined}/>
+        <Main isLogined={isLogined} />
       </Route>
       <Route exact path='/movies'>
         <Movies />
@@ -67,13 +73,13 @@ function App() {
         <SavedMovies />
       </Route>
       <Route exact path='/profile'>
-        <Profile onLogout={handleLogout}/>
+        <Profile onLogout={handleLogout} />
       </Route>
       <Route exact path='/signin'>
-        <Login onLogin={handleLogin}/>
+        <Login onLogin={handleLogin} />
       </Route>
       <Route exact path='/signup'>
-        <Register />
+        <Register onRegister={handleRegister}/>
       </Route>
       <Route path='*'>
         <PageNotFound />

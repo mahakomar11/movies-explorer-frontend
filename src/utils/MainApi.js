@@ -4,7 +4,7 @@ class MainApi {
     this._headers = config.headers;
     this._moviesUrl = `${this._baseUrl}/movies`;
     this._profileUrl = `${this._baseUrl}/users/me`;
-    this._signupUrl = `${this._baseUrl}/signup`;
+    this._registerUrl = `${this._baseUrl}/signup`;
     this._loginUrl = `${this._baseUrl}/signin`;
   }
 
