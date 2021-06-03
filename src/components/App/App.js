@@ -9,6 +9,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import mainApi from '../../utils/MainApi';
+import moviesApi from '../../utils/MoviesApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
@@ -16,6 +17,7 @@ function App() {
   const history = useHistory();
   const [isLogined, setIsLogined] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
+  const [moviesList, setMoviesList] = React.useState([]);
 
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -74,6 +76,10 @@ function App() {
       .catch((err) => console.log(err));
   }
   
+  function handleLoadFilms() {
+    moviesApi.getMovies().then((data) => setMoviesList(data))
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Switch>
@@ -87,7 +93,7 @@ function App() {
           <Register onRegister={handleRegister} />
         </Route>
         <ProtectedRoute exact path='/movies' isLogined={isLogined}>
-          <Movies />
+          <Movies moviesList={moviesList} onSearch={handleLoadFilms}/>
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
           <SavedMovies />

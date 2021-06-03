@@ -14,7 +14,7 @@ function MoviesCardList(props) {
     <section className='movies-list'>
       <ul className='movies-list__grid'>
         {moviesCards.slice(0, 12).map((movie) => (
-          <MovieCard movie={movie} inSaved={inSaved} />
+          <MovieCard movie={movie} inSaved={inSaved} key={movie.id} />
         ))}
       </ul>
       {moviesCards.length > 12 ? (

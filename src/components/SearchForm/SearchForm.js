@@ -1,8 +1,15 @@
 import './SearchForm.css';
 
-function SearchForm() {
+function SearchForm(props) {
+  const {onSearch} = props;
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSearch();
+  }
+
   return (
-    <form className='search-form'>
+    <form className='search-form' onSubmit={handleSubmit}>
       <fieldset className='search-form__fieldset sign-form__fieldset_for_search'>
         <input
           placeholder='Фильм'
