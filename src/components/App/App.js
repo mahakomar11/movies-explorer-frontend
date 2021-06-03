@@ -18,6 +18,7 @@ function App() {
   const [isLogined, setIsLogined] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [moviesList, setMoviesList] = React.useState([]);
+  const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -75,9 +76,35 @@ function App() {
       .then((data) => setCurrentUser(data))
       .catch((err) => console.log(err));
   }
-  
+
   function handleLoadFilms() {
-    moviesApi.getMovies().then((data) => setMoviesList(data))
+    moviesApi.getMovies().then((data) => setMoviesList(data));
+  }
+
+  function handleMovieSave(movie) {
+    console.log(movie);
+    const movieId = movie.id;
+    const image = `https://api.nomoreparties.co${movie.image.url}`;
+    const thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+    const trailer = movie.trailerLink;
+    const { country, director, duration, year, description, nameRU, nameEN } =
+      movie;
+    mainApi
+      .saveMovie({
+        movieId,
+        image,
+        thumbnail,
+        trailer,
+        country,
+        director,
+        duration,
+        year,
+        description,
+        nameRU,
+        nameEN,
+      })
+      .then((data) => setSavedMoviesList([...savedMoviesList, data]))
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -93,10 +120,14 @@ function App() {
           <Register onRegister={handleRegister} />
         </Route>
         <ProtectedRoute exact path='/movies' isLogined={isLogined}>
-          <Movies moviesList={moviesList} onSearch={handleLoadFilms}/>
+          <Movies
+            moviesList={moviesList}
+            onSearch={handleLoadFilms}
+            onMovieSave={handleMovieSave}
+          />
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
-          <SavedMovies />
+          <SavedMovies moviesList={savedMoviesList} onSearch={() => {}} />
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile' isLogined={isLogined}>
           <Profile onLogout={handleLogout} onSubmit={handleEditProfile} />
