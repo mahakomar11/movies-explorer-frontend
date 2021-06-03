@@ -67,6 +67,13 @@ function App() {
       });
   }
 
+  function handleEditProfile(newProfileData) {
+    mainApi
+      .patchUserInfo(newProfileData)
+      .then((data) => setCurrentUser(data))
+      .catch((err) => console.log(err));
+  }
+  
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Switch>
@@ -86,7 +93,7 @@ function App() {
           <SavedMovies />
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile' isLogined={isLogined}>
-          <Profile onLogout={handleLogout} />
+          <Profile onLogout={handleLogout} onSubmit={handleEditProfile} />
         </ProtectedRoute>
         <Route path='*'>
           <PageNotFound />
