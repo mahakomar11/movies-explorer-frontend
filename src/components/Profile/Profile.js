@@ -1,13 +1,17 @@
+import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function Profile(props) {
   const { onLogout } = props;
+  const currentUser = React.useContext(CurrentUserContext);
+
   return (
     <section className='profile'>
       <Header isLogined={true} />
       <form className='profile__form'>
-        <h1 className='profile__greetings'>Привет, Маруся!</h1>
+        <h1 className='profile__greetings'>Привет, {currentUser.name}!</h1>
         <fieldset className='profile__fieldset'>
           <label className='profile__label'>
             Имя
@@ -15,7 +19,7 @@ function Profile(props) {
               className='profile__input'
               type='text'
               name='name'
-              value='Виталя'
+              value={currentUser.name}
               minLength={2}
               maxLength={40}
               required
@@ -28,7 +32,7 @@ function Profile(props) {
               className='profile__input'
               type='email'
               name='email'
-              value='pochta@yandex.ru'
+              value={currentUser.email}
               minLength={2}
               required
               disabled

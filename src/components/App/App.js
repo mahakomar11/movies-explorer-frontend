@@ -10,10 +10,12 @@ import Register from '../Register/Register';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import mainApi from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 function App() {
   const history = useHistory();
   const [isLogined, setIsLogined] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
 
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -24,6 +26,7 @@ function App() {
         .then((data) => {
           if (data) {
             console.log(data);
+            setCurrentUser({ name: data.name, email: data.email });
             setIsLogined(true);
             history.push('/movies');
           }
@@ -36,6 +39,7 @@ function App() {
     mainApi
       .loginUser(loginData)
       .then((data) => {
+        setCurrentUser({ name: data.name, email: data.email });
         setIsLogined(true);
         localStorage.setItem('jwt', data.token);
         history.push('/movies');
@@ -64,29 +68,31 @@ function App() {
   }
 
   return (
-    <Switch>
-      <Route exact path='/'>
-        <Main isLogined={isLogined} />
-      </Route>
-      <Route exact path='/signin'>
-        <Login onLogin={handleLogin} />
-      </Route>
-      <Route exact path='/signup'>
-        <Register onRegister={handleRegister} />
-      </Route>
-      <ProtectedRoute exact path='/movies' isLogined={isLogined}>
-        <Movies />
-      </ProtectedRoute>
-      <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
-        <SavedMovies />
-      </ProtectedRoute>
-      <ProtectedRoute exact path='/profile' isLogined={isLogined}>
-        <Profile onLogout={handleLogout} />
-      </ProtectedRoute>
-      <Route path='*'>
-        <PageNotFound />
-      </Route>
-    </Switch>
+    <CurrentUserContext.Provider value={currentUser}>
+      <Switch>
+        <Route exact path='/'>
+          <Main isLogined={isLogined} />
+        </Route>
+        <Route exact path='/signin'>
+          <Login onLogin={handleLogin} />
+        </Route>
+        <Route exact path='/signup'>
+          <Register onRegister={handleRegister} />
+        </Route>
+        <ProtectedRoute exact path='/movies' isLogined={isLogined}>
+          <Movies />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
+          <SavedMovies />
+        </ProtectedRoute>
+        <ProtectedRoute exact path='/profile' isLogined={isLogined}>
+          <Profile onLogout={handleLogout} />
+        </ProtectedRoute>
+        <Route path='*'>
+          <PageNotFound />
+        </Route>
+      </Switch>
+    </CurrentUserContext.Provider>
   );
 }
 
