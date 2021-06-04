@@ -128,6 +128,20 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  function handleMovieDelete(movie) {
+    const movieToDelete = savedMoviesList.find(
+      (savedMovie) => savedMovie.movieId === movie.id
+    );
+    mainApi
+      .deleteMovie(movieToDelete._id)
+      .then((data) =>
+        setSavedMoviesList(
+          savedMoviesList.filter((savedMovie) => savedMovie !== movieToDelete)
+        )
+      )
+      .catch((err) => console.log(err));
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Switch>
@@ -146,10 +160,16 @@ function App() {
             savedMoviesList={savedMoviesList}
             onSearch={handleLoadFilms}
             onMovieSave={handleMovieSave}
+            onMovieDelete={handleMovieDelete}
           />
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
-          <SavedMovies moviesList={moviesList} savedMoviesList={savedMoviesList} onSearch={() => {}} />
+          <SavedMovies
+            moviesList={moviesList}
+            savedMoviesList={savedMoviesList}
+            onSearch={() => {}}
+            onMovieDelete={handleMovieDelete}
+          />
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile' isLogined={isLogined}>
           <Profile onLogout={handleLogout} onSubmit={handleEditProfile} />

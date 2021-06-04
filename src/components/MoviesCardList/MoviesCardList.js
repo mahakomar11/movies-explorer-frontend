@@ -2,7 +2,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-  const { moviesList, savedMoviesList, inSaved, onMovieSave } = props;
+  const { moviesList, savedMoviesList, inSaved, onMovieSave, onMovieDelete } = props;
   if (moviesList.length === 0)
     return (
       <section className='movies-list'>
@@ -20,6 +20,7 @@ function MoviesCardList(props) {
             isSaved={savedMoviesList.some((savedMovie) => savedMovie.movieId === movie.id)}
             key={movie.id}
             onSave={onMovieSave}
+            onDelete={onMovieDelete}
           />
         ))}
       </ul>

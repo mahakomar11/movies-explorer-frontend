@@ -4,7 +4,7 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
 function Movies(props) {
-  const { onSearch, moviesList, savedMoviesList, onMovieSave } = props;
+  const { onSearch, moviesList, savedMoviesList, onMovieSave, onMovieDelete } = props;
 
   return (
     <>
@@ -15,6 +15,7 @@ function Movies(props) {
         savedMoviesList={savedMoviesList}
         inSaved={false}
         onMovieSave={onMovieSave}
+        onMovieDelete={onMovieDelete}
       />
       <Footer />
     </>

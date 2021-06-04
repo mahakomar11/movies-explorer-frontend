@@ -1,10 +1,11 @@
 import './MovieCard.css';
 
 function MovieCard(props) {
-  const { movie, inSaved, isSaved, onSave } = props;
+  const { movie, inSaved, isSaved, onSave, onDelete } = props;
 
   function handleDelete(e) {
     console.log(movie);
+    onDelete(movie)
   }
 
   function handleSave() {
