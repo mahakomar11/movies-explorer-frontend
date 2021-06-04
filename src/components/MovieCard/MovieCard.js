@@ -1,7 +1,8 @@
 import './MovieCard.css';
 
 function MovieCard(props) {
-  const { movie, inSaved, onSave } = props;
+  const { movie, inSaved, isSaved, onSave } = props;
+
   function handleDelete(e) {
     console.log(movie);
   }
@@ -37,7 +38,7 @@ function MovieCard(props) {
           className='movie__button movie__button_insaved'
           onClick={handleDelete}
         ></button>
-      ) : movie.isSaved ? (
+      ) : isSaved ? (
         <button
           className='movie__button movie__button_saved_yes'
           onClick={handleDelete}

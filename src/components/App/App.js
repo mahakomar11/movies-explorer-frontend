@@ -20,23 +20,41 @@ function App() {
   const [moviesList, setMoviesList] = React.useState([]);
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
 
+  React.useEffect(() => {}, []);
+
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    console.log('load jwt');
     if (jwt) {
+      console.log('load data');
       mainApi
         .loadLoginedUser(jwt)
         .then((data) => {
           if (data) {
-            console.log(data);
+            console.log('data', data);
             setCurrentUser({ name: data.name, email: data.email });
             setIsLogined(true);
-            history.push('/movies');
           }
         })
-        .catch((err) => console.log(err.message));
+        .catch((err) => {
+          console.log(err.message);
+        });
     }
-  }, [history, isLogined]);
+  }, []);
+
+  React.useEffect(() => {
+    if (isLogined) {
+      mainApi
+        .getSavedMovies()
+        .then((data) => setSavedMoviesList(data))
+        .catch((err) => console.log(err));
+    }
+  }, [isLogined]);
+
+  React.useEffect(() => {
+    if (isLogined) {
+      history.push('/movies');
+    }
+  }, [isLogined, history]);
 
   function handleLogin(loginData) {
     mainApi
@@ -78,7 +96,10 @@ function App() {
   }
 
   function handleLoadFilms() {
-    moviesApi.getMovies().then((data) => setMoviesList(data));
+    moviesApi
+      .getMovies()
+      .then((data) => setMoviesList(data))
+      .catch((err) => console.log(err));
   }
 
   function handleMovieSave(movie) {
@@ -122,6 +143,7 @@ function App() {
         <ProtectedRoute exact path='/movies' isLogined={isLogined}>
           <Movies
             moviesList={moviesList}
+            savedMoviesList={savedMoviesList}
             onSearch={handleLoadFilms}
             onMovieSave={handleMovieSave}
           />

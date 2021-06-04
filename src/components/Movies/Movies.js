@@ -4,13 +4,18 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Footer from '../Footer/Footer';
 
 function Movies(props) {
-  const {onSearch, moviesList, onMovieSave} = props;
+  const { onSearch, moviesList, savedMoviesList, onMovieSave } = props;
 
   return (
     <>
       <Header isLogined={true} />
-      <SearchForm onSearch={onSearch}/>
-      <MoviesCardList moviesCards={moviesList} inSaved={false} onMovieSave={onMovieSave}/>
+      <SearchForm onSearch={onSearch} />
+      <MoviesCardList
+        moviesList={moviesList}
+        savedMoviesList={savedMoviesList}
+        inSaved={false}
+        onMovieSave={onMovieSave}
+      />
       <Footer />
     </>
   );
