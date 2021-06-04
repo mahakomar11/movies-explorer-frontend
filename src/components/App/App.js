@@ -149,7 +149,7 @@ function App() {
           />
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
-          <SavedMovies moviesList={savedMoviesList} onSearch={() => {}} />
+          <SavedMovies moviesList={moviesList} savedMoviesList={savedMoviesList} onSearch={() => {}} />
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile' isLogined={isLogined}>
           <Profile onLogout={handleLogout} onSubmit={handleEditProfile} />
