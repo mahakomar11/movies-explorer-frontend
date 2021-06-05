@@ -102,14 +102,22 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleMovieSave(movie) {
-    console.log(movie);
-    const movieId = movie.id;
-    const image = `https://api.nomoreparties.co${movie.image.url}`;
-    const thumbnail = `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
-    const trailer = movie.trailerLink;
-    const { country, director, duration, year, description, nameRU, nameEN } =
-      movie;
+  function handleMovieSave(movieCard) {
+    console.log(movieCard);
+    const movieId = movieCard.id;
+    const {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      nameRU,
+      nameEN,
+      image,
+      trailer,
+      thumbnail
+    } = movieCard;
+
     mainApi
       .saveMovie({
         movieId,
@@ -128,10 +136,11 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleMovieDelete(movie) {
+  function handleMovieDelete(movieCard) {
     const movieToDelete = savedMoviesList.find(
-      (savedMovie) => savedMovie.movieId === movie.id
+      (savedMovie) => savedMovie.movieId === movieCard.id
     );
+    
     mainApi
       .deleteMovie(movieToDelete._id)
       .then((data) =>
@@ -165,7 +174,6 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
           <SavedMovies
-            moviesList={moviesList}
             savedMoviesList={savedMoviesList}
             onSearch={() => {}}
             onMovieDelete={handleMovieDelete}

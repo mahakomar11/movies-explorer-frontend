@@ -75,4 +75,9 @@
 .movies-list__message {
   text-align: center;
   margin: 0 0 calc(100vh - 572px);
+  display: none;
+}
+
+.movies-list__message_visible {
+  display: block;
 }

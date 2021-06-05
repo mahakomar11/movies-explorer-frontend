@@ -1,21 +1,16 @@
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Footer from '../Footer/Footer';
 
 function SavedMovies(props) {
-  const { onSearch, moviesList, savedMoviesList, onMovieDelete } = props;
-
-  const moviesToDisplay = moviesList.filter((movie) =>
-    savedMoviesList.some((savedMovie) => savedMovie.movieId === movie.id)
-  );
+  const { onSearch, savedMoviesList, onMovieDelete } = props;
 
   return (
     <>
       <Header isLogined={true} />
       <SearchForm onSearch={onSearch} />
-      <MoviesCardList
-        moviesList={moviesToDisplay}
+      <SavedMoviesCardList
         savedMoviesList={savedMoviesList}
         inSaved={true}
         onMovieDelete={onMovieDelete}

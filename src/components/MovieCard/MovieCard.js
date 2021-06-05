@@ -4,12 +4,10 @@ function MovieCard(props) {
   const { movie, inSaved, isSaved, onSave, onDelete } = props;
 
   function handleDelete(e) {
-    console.log(movie);
     onDelete(movie)
   }
 
   function handleSave() {
-    console.log(movie);
     onSave(movie);
   }
 
@@ -23,13 +21,13 @@ function MovieCard(props) {
       </div>
       <a
         className='movie__trailer-link'
-        href={movie.trailerLink}
+        href={movie.trailer}
         target='_blank'
         rel='noreferrer'
       >
         <img
           className='movie__image'
-          src={`https://api.nomoreparties.co${movie.image.url}`}
+          src={movie.image}
           alt={`Обложка фильма ${movie.nameRU}`}
         ></img>
         <div className='movie__overlay'></div>
