@@ -98,7 +98,9 @@ function App() {
   function handleLoadFilms() {
     moviesApi
       .getMovies()
-      .then((data) => setMoviesList(data))
+      .then((data) => {
+        setMoviesList(data);
+      })
       .catch((err) => console.log(err));
   }
 
@@ -115,7 +117,7 @@ function App() {
       nameEN,
       image,
       trailer,
-      thumbnail
+      thumbnail,
     } = movieCard;
 
     mainApi
@@ -140,7 +142,7 @@ function App() {
     const movieToDelete = savedMoviesList.find(
       (savedMovie) => savedMovie.movieId === movieCard.id
     );
-    
+
     mainApi
       .deleteMovie(movieToDelete._id)
       .then((data) =>
