@@ -1,36 +1,27 @@
 import React from 'react';
 import './SignForm.css';
 import { Link } from 'react-router-dom';
+import { useFormWithValidation } from '../ValidationForm/ValidationForm';
 
 function SignForm(props) {
   const { place, onSubmit } = props;
 
-  const [name, setName] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const initialValues =
+    place === 'signup'
+      ? { name: '', email: '', password: '' }
+      : { email: '', password: '' };
 
-  React.useEffect(() => {
-    setName('');
-    setEmail('');
-    setPassword('');
-  }, []);
+  const initialErrors =
+    place === 'signup'
+      ? { name: '', email: '', password: '' }
+      : { email: '', password: '' };
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormWithValidation(initialValues, initialErrors);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (place === 'signup') onSubmit({ name, email, password });
-    else onSubmit({ email, password });
+    onSubmit(values);
   }
 
   const message =
@@ -60,13 +51,15 @@ function SignForm(props) {
               type='text'
               name='name'
               id='name'
-              value={name}
+              value={values.name}
               minLength={2}
               maxLength={40}
               required
-              onChange={handleNameChange}
+              onChange={handleChange}
             />
-            <span className='sign-form__error-message' id='name-error'></span>
+            <span className={`sign-form__error-message`} id='name-error'>
+              {errors.name}
+            </span>
           </>
         )}
         <label className='sign-form__label' htmlFor='email'>
@@ -77,12 +70,14 @@ function SignForm(props) {
           type='email'
           name='email'
           id='email'
-          value={email}
+          value={values.email}
           minLength={2}
           required
-          onChange={handleEmailChange}
+          onChange={handleChange}
         />
-        <span className='sign-form__error-message' id='email-error'></span>
+        <span className='sign-form__error-message' id='email-error'>
+          {errors.email}
+        </span>
         <label className='sign-form__label' htmlFor='password'>
           Пароль
         </label>
@@ -91,15 +86,17 @@ function SignForm(props) {
           type='password'
           name='password'
           id='password'
-          value={password}
+          value={values.password}
           minLength={8}
           required
-          onChange={handlePasswordChange}
+          onChange={handleChange}
         />
-        <span className='sign-form__error-message' id='password-error'></span>
+        <span className='sign-form__error-message' id='password-error'>
+          {errors.password}
+        </span>
       </fieldset>
       <fieldset className='sign-form__fieldset'>
-        <button className='sign-form__button' type='submit'>
+        <button className='sign-form__button' type='submit' disabled={!isValid}>
           {place === 'signup' ? 'Зарегистрироваться' : 'Войти'}
         </button>
         <p className='sign-form__message'>

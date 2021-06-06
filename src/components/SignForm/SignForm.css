@@ -47,6 +47,11 @@
   border-bottom: black 1px solid;
 }
 
+.sign-form__input:invalid {
+  color: #ff4062;
+  caret-color: black;
+}
+
 .sign-form__label {
   font-size: 10px;
   line-height: 12px;
@@ -68,15 +73,22 @@
   cursor: pointer;
 }
 
+.sign-form__button:hover {
+  opacity: 0.8;
+}
+
+.sign-form__button:disabled {
+  background: #a0a0a0;
+  opacity: 1;
+  /* opacity: 0.5; */
+  cursor: default;
+}
+
 @media screen and (max-width: 540px) {
   .sign-form__button {
     font-size: 12px;
     line-height: 15px;
   }
-}
-
-.sign-form__button:hover {
-  opacity: 0.8;
 }
 
 .sign-form__message {
@@ -114,9 +126,5 @@
   margin: 6px 0 calc(24px - 2 * 6px);
   font-size: 10px;
   line-height: 12px;
-  color: #ff4062;
-}
-
-.sign-form__input_errored {
   color: #ff4062;
 }
