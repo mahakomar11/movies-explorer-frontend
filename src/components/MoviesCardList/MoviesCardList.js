@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
 
 function MoviesCardList(props) {
-  const { moviesList, savedMoviesList, inSaved, onMovieSave, onMovieDelete } =
+  const { moviesList, savedMoviesList, inSaved, onMovieSave, onMovieDelete, message } =
     props;
 
   const [moviesToDisplay, setMoviesToDisplay] = React.useState([]);
@@ -61,7 +61,7 @@ function MoviesCardList(props) {
   if (moviesList.length === 0)
     return (
       <section className='movies-list'>
-        <p className='movies-list__message'>Фильмы не найдены</p>
+        <p className='movies-list__filler'>{message}</p>
       </section>
     );
 

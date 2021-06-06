@@ -12,6 +12,7 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import filterMovies from '../../utils/filter';
 
 function App() {
   const history = useHistory();
@@ -19,18 +20,19 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [moviesList, setMoviesList] = React.useState([]);
   const [savedMoviesList, setSavedMoviesList] = React.useState([]);
+  const [foundMoviesList, setFoundMoviesList] = React.useState([]);
+  const [foundSavedMoviesList, setFoundSavedMoviesList] = React.useState([]);
+  const [searchMessage, setSearchMessage] = React.useState();
+  const [searchParams, setSearchParams] = React.useState();
 
-  React.useEffect(() => {}, []);
-
+  // Load jwt
   React.useEffect(() => {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      console.log('load data');
       mainApi
         .loadLoginedUser(jwt)
         .then((data) => {
           if (data) {
-            console.log('data', data);
             setCurrentUser({ name: data.name, email: data.email });
             setIsLogined(true);
           }
@@ -41,6 +43,7 @@ function App() {
     }
   }, []);
 
+  // If logined, get saved movies
   React.useEffect(() => {
     if (isLogined) {
       mainApi
@@ -50,11 +53,52 @@ function App() {
     }
   }, [isLogined]);
 
+  // If logined, redirect to /movies
   React.useEffect(() => {
     if (isLogined) {
       history.push('/movies');
     }
   }, [isLogined, history]);
+
+  // If user create his first search, load all movies
+  React.useEffect(() => {
+    if (Boolean(searchParams) & (moviesList.length === 0)) {
+      moviesApi
+        .getMovies()
+        .then((data) => setMoviesList(data))
+        .catch((err) =>
+          setSearchMessage(
+            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+          )
+        );
+    }
+  }, [searchParams, moviesList]);
+
+  // Get search results
+  React.useEffect(() => {
+    if (Boolean(searchParams) & (moviesList.length !== 0)) {
+      setFoundMoviesList(
+        filterMovies(moviesList, searchParams.keyword, searchParams.isShort)
+      );
+      console.log(searchParams);
+    }
+  }, [searchParams, moviesList]);
+
+  // Update searchMessage and preloader
+  React.useEffect(() => {
+    if (
+      Boolean(searchParams) &
+      (foundMoviesList.length === 0) &
+      (moviesList.length !== 0)
+    )
+      setSearchMessage('Ничего не найдено');
+    else if (
+      Boolean(searchParams) &
+      (foundMoviesList.length === 0) &
+      (moviesList.length === 0)
+    )
+      console.log('preloader');
+  }, [searchParams, foundMoviesList, moviesList]);
 
   function handleLogin(loginData) {
     mainApi
@@ -95,17 +139,17 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleLoadFilms() {
-    moviesApi
-      .getMovies()
-      .then((data) => {
-        setMoviesList(data);
-      })
-      .catch((err) => console.log(err));
+  function handleLoadFilms(keyword, isShort) {
+    setSearchParams({ keyword: keyword, isShort: isShort });
+  }
+
+  function handleLoadSavedFilms(keyword, isShort) {
+    console.log('loaddddd');
+    setFoundSavedMoviesList(filterMovies(savedMoviesList, keyword, isShort));
+    console.log();
   }
 
   function handleMovieSave(movieCard) {
-    console.log(movieCard);
     const movieId = movieCard.id;
     const {
       country,
@@ -167,17 +211,18 @@ function App() {
         </Route>
         <ProtectedRoute exact path='/movies' isLogined={isLogined}>
           <Movies
-            moviesList={moviesList}
+            moviesList={foundMoviesList}
             savedMoviesList={savedMoviesList}
             onSearch={handleLoadFilms}
             onMovieSave={handleMovieSave}
             onMovieDelete={handleMovieDelete}
+            message={searchMessage}
           />
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
           <SavedMovies
-            savedMoviesList={savedMoviesList}
-            onSearch={() => {}}
+            savedMoviesList={foundSavedMoviesList}
+            onSearch={handleLoadSavedFilms}
             onMovieDelete={handleMovieDelete}
           />
         </ProtectedRoute>
