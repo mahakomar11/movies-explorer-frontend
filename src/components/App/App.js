@@ -24,6 +24,8 @@ function App() {
   const [foundSavedMoviesList, setFoundSavedMoviesList] = React.useState([]);
   const [searchMessage, setSearchMessage] = React.useState();
   const [searchParams, setSearchParams] = React.useState();
+  const [searchMessageSaved, setSearchMessageSaved] = React.useState();
+  const [searchParamsSaved, setSearchParamsSaved] = React.useState();
 
   // Load jwt
   React.useEffect(() => {
@@ -100,6 +102,15 @@ function App() {
       console.log('preloader');
   }, [searchParams, foundMoviesList, moviesList]);
 
+  // Update searchMessageSaved
+  React.useEffect(() => {
+    if (
+      Boolean(searchParamsSaved) &
+      (foundSavedMoviesList.length === 0)
+    )
+      setSearchMessageSaved('Ничего не найдено');
+  }, [searchParamsSaved, foundSavedMoviesList]);
+
   function handleLogin(loginData) {
     mainApi
       .loginUser(loginData)
@@ -145,8 +156,8 @@ function App() {
 
   function handleLoadSavedFilms(keyword, isShort) {
     console.log('loaddddd');
+    setSearchParamsSaved({ keyword: keyword, isShort: isShort })
     setFoundSavedMoviesList(filterMovies(savedMoviesList, keyword, isShort));
-    console.log();
   }
 
   function handleMovieSave(movieCard) {
@@ -224,6 +235,7 @@ function App() {
             savedMoviesList={foundSavedMoviesList}
             onSearch={handleLoadSavedFilms}
             onMovieDelete={handleMovieDelete}
+            message={searchMessageSaved}
           />
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile' isLogined={isLogined}>

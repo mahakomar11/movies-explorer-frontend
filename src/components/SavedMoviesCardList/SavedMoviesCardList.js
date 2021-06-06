@@ -2,7 +2,7 @@ import '../MoviesCardList/MoviesCardList';
 import MovieCard from '../MovieCard/MovieCard';
 
 function SavedMoviesCardList(props) {
-  const { savedMoviesList, onMovieDelete } = props;
+  const { savedMoviesList, onMovieDelete, message } = props;
 
   return (
     <section className='movies-list'>
@@ -29,7 +29,7 @@ function SavedMoviesCardList(props) {
         })}
       </ul>
       <div className='movies-list__filler'>
-        <p className='movies-list__message'>Фильмы не найдены</p>
+        <p className='movies-list__message'>{message}</p>
       </div>
     </section>
   );
