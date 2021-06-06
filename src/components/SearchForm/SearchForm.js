@@ -4,31 +4,12 @@ import { useFormWithValidation } from '../ValidationForm/ValidationForm';
 
 function SearchForm(props) {
   const { onSearch } = props;
-  // const [keyword, setKeyword] = React.useState('');
-  // const [isShort, setIsShort] = React.useState(false);
 
-  // function handleKeywordChange(e) {
-  //   setKeyword(e.target.value)
-  // }
-
-  // function handleCheckboxChange(e) {
-  //   setIsShort(e.target.checked)
-  // }
-
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   onSearch(keyword, isShort);
-  // }
-
-  const { values, handleChange } = useFormWithValidation(
+  const { values, handleChange, handleSubmit } = useFormWithValidation(
     { keyword: '', isShort: false },
-    { keyword: '', isShort: '' }
+    { keyword: '', isShort: '' },
+    onSearch
   );
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSearch(values);
-  }
 
   function handleValid(e) {
     e.preventDefault();

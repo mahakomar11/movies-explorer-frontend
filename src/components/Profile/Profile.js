@@ -8,15 +8,11 @@ function Profile(props) {
   const { onLogout, onSubmit } = props;
   const currentUser = React.useContext(CurrentUserContext);
 
-  const { values, handleChange, errors, isValid } = useFormWithValidation(
+  const { values, errors, isValid, handleChange, handleSubmit } = useFormWithValidation(
     currentUser,
-    { name: '', email: '' }
+    { name: '', email: '' },
+    onSubmit
   );
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit(values);
-  }
 
   return (
     <section className='profile'>

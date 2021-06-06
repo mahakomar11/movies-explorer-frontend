@@ -16,13 +16,8 @@ function SignForm(props) {
       ? { name: '', email: '', password: '' }
       : { email: '', password: '' };
 
-  const { values, handleChange, errors, isValid } =
-    useFormWithValidation(initialValues, initialErrors);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit(values);
-  }
+  const { values, errors, isValid, handleChange, handleSubmit } =
+    useFormWithValidation(initialValues, initialErrors, onSubmit);
 
   const message =
     place === 'signup' ? 'Уже зарегистрированы? ' : 'Ещё не зарегистрированы? ';
