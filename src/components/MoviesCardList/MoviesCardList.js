@@ -1,10 +1,17 @@
 import React from 'react';
 import './MoviesCardList.css';
 import MovieCard from '../MovieCard/MovieCard';
+import Preloader from '../Preloader/Preloader';
 
 function MoviesCardList(props) {
-  const { moviesList, savedMoviesList, inSaved, onMovieSave, onMovieDelete, message } =
-    props;
+  const {
+    moviesList,
+    savedMoviesList,
+    inSaved,
+    onMovieSave,
+    onMovieDelete,
+    message,
+  } = props;
 
   const [moviesToDisplay, setMoviesToDisplay] = React.useState([]);
   const [cardsInRow, setCardsInRow] = React.useState(0);
@@ -61,7 +68,10 @@ function MoviesCardList(props) {
   if (moviesList.length === 0)
     return (
       <section className='movies-list'>
-        <p className='movies-list__filler'>{message}</p>
+        <div className='movies-list__filler'>
+          <Preloader />
+          {message}
+        </div>
       </section>
     );
 

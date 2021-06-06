@@ -99,7 +99,7 @@ function App() {
       (foundMoviesList.length === 0) &
       (moviesList.length === 0)
     )
-      console.log('preloader');
+      document.querySelector('.preloader').classList.remove('preloader_inactive')
   }, [searchParams, foundMoviesList, moviesList]);
 
   // Update searchMessageSaved
