@@ -58,6 +58,7 @@
   font-size: 11px;
   line-height: calc(13px + 2 * 16px);
   border-bottom: #e8e8e8 1px solid;
+  position: relative;
 }
 
 @media screen and (max-width: 540px) {
@@ -121,6 +122,18 @@
   }
 }
 
-.profile__button_disabled {
-  display: none;
+.profile__button:disabled {
+  color:#e8e8e8;
+  text-decoration: none;
+  cursor: default;
+}
+
+.profile__error {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  font-size: 9px;
+  line-height: 9px;
+  color: #ff4062;
 }

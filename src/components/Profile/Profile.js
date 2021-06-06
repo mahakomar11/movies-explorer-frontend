@@ -2,58 +2,27 @@ import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../ValidationForm/ValidationForm';
 
 function Profile(props) {
   const { onLogout, onSubmit } = props;
   const currentUser = React.useContext(CurrentUserContext);
-  const [name, setName] = React.useState(currentUser.name);
-  const [email, setEmail] = React.useState(currentUser.email);
 
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleEdit() {
-    document.querySelectorAll('.profile__input').forEach((el) => {
-      el.disabled = false;
-    });
-    document
-      .querySelector('.profile__label')
-      .classList.add('profile__label_editable');
-    document
-      .querySelector('.profile__button_action_edit')
-      .classList.add('profile__button_disabled');
-    document
-      .querySelector('.profile__button_action_save')
-      .classList.remove('profile__button_disabled');
-  }
+  const { values, handleChange, errors, isValid } = useFormWithValidation(
+    currentUser,
+    { name: '', email: '' }
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
-    document.querySelectorAll('.profile__input').forEach((el) => {
-      el.disabled = true;
-    });
-    document
-      .querySelector('.profile__label')
-      .classList.remove('profile__label_editable');
-    document
-      .querySelector('.profile__button_action_edit')
-      .classList.remove('profile__button_disabled');
-    document
-      .querySelector('.profile__button_action_save')
-      .classList.add('profile__button_disabled');
-    onSubmit({name, email})
+    onSubmit(values);
   }
 
   return (
     <section className='profile'>
       <Header isLogined={true} />
-      <form className='profile__form'>
-        <h1 className='profile__greetings'>Привет, {name}!</h1>
+      <form className='profile__form' onSubmit={handleSubmit}>
+        <h1 className='profile__greetings'>Привет, {currentUser.name}!</h1>
         <fieldset className='profile__fieldset'>
           <label className='profile__label'>
             Имя
@@ -62,13 +31,13 @@ function Profile(props) {
               type='text'
               name='name'
               id='name'
-              value={name}
+              value={values.name}
               minLength={2}
               maxLength={40}
               required
-              disabled
-              onChange={handleNameChange}
+              onChange={handleChange}
             />
+            <span className='profile__error'>{errors.name}</span>
           </label>
           <label className='profile__label'>
             E-mail
@@ -77,28 +46,21 @@ function Profile(props) {
               type='email'
               name='email'
               id='email'
-              value={email}
+              value={values.email}
               minLength={2}
               required
-              disabled
-              onChange={handleEmailChange}
+              onChange={handleChange}
             />
+            <span className='profile__error'>{errors.email}</span>
           </label>
         </fieldset>
         <fieldset className='profile__fieldset profile__fieldset_content_buttons'>
           <button
-            type='button'
+            type='submit'
             className='profile__button profile__button_action_edit'
-            onClick={handleEdit}
+            disabled={!isValid}
           >
             Редактировать
-          </button>
-          <button
-            type='submit'
-            className='profile__button profile__button_action_save profile__button_disabled'
-            onClick={handleSubmit}
-          >
-            Сохранить
           </button>
           <button
             className='profile__button profile__button_action_logout'
