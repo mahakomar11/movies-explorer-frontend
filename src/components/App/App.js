@@ -43,7 +43,7 @@ function App() {
           console.log(err.message);
         });
     }
-  }, []);
+  }, [isLogined]);
 
   // If logined, get saved movies
   React.useEffect(() => {

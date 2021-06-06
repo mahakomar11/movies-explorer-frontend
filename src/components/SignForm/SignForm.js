@@ -16,7 +16,7 @@ function SignForm(props) {
       ? { name: '', email: '', password: '' }
       : { email: '', password: '' };
 
-  const { values, handleChange, errors, isValid, resetForm } =
+  const { values, handleChange, errors, isValid } =
     useFormWithValidation(initialValues, initialErrors);
 
   function handleSubmit(e) {
