@@ -72,7 +72,7 @@
   padding: 0;
   margin: 0;
 }
-  
+
 .sign-form__fieldset_for_search {
   position: relative;
 }
@@ -147,4 +147,14 @@
 
 .search-form__checkbox:checked + .search-form__slider:before {
   transform: translateX(16px);
+}
+
+.search-form__error {
+  position: absolute;
+  bottom: -18px;
+  left: 22px;
+  text-align: right;
+  font-size: 11px;
+  line-height: 14px;
+  color: #ff4062;
 }

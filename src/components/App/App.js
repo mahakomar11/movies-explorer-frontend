@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -99,15 +99,14 @@ function App() {
       (foundMoviesList.length === 0) &
       (moviesList.length === 0)
     )
-      document.querySelector('.preloader').classList.remove('preloader_inactive')
+      document
+        .querySelector('.preloader')
+        .classList.remove('preloader_inactive');
   }, [searchParams, foundMoviesList, moviesList]);
 
   // Update searchMessageSaved
   React.useEffect(() => {
-    if (
-      Boolean(searchParamsSaved) &
-      (foundSavedMoviesList.length === 0)
-    )
+    if (Boolean(searchParamsSaved) & (foundSavedMoviesList.length === 0))
       setSearchMessageSaved('Ничего не найдено');
     else setSearchMessageSaved('');
   }, [searchParamsSaved, foundSavedMoviesList]);
@@ -151,13 +150,12 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleLoadFilms(keyword, isShort) {
+  function handleLoadFilms({keyword, isShort}) {
     setSearchParams({ keyword: keyword, isShort: isShort });
   }
 
-  function handleLoadSavedFilms(keyword, isShort) {
-    console.log('loaddddd');
-    setSearchParamsSaved({ keyword: keyword, isShort: isShort })
+  function handleLoadSavedFilms({keyword, isShort}) {
+    setSearchParamsSaved({ keyword: keyword, isShort: isShort });
     setFoundSavedMoviesList(filterMovies(savedMoviesList, keyword, isShort));
   }
 
