@@ -109,6 +109,7 @@ function App() {
       (foundSavedMoviesList.length === 0)
     )
       setSearchMessageSaved('Ничего не найдено');
+    else setSearchMessageSaved('');
   }, [searchParamsSaved, foundSavedMoviesList]);
 
   function handleLogin(loginData) {
