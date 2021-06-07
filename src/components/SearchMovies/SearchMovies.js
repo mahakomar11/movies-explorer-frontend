@@ -8,7 +8,7 @@ function useSearchMovies(movies, searchParams) {
   });
 
   React.useEffect(() => {
-    if ((searchParams === undefined) | (movies.length === 0)) return;
+    if ((searchParams.keyword === '') | (movies.length === 0)) return;
 
     const foundMovies = filterMovies(
       movies,

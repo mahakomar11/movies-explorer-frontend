@@ -3,10 +3,10 @@ import './SearchForm.css';
 import { useFormWithValidation } from '../FormWithValidation/FormWithValidation';
 
 function SearchForm(props) {
-  const { onSearch } = props;
+  const { onSearch, searchParams } = props;
 
   const { values, handleChange, handleSubmit } = useFormWithValidation(
-    { keyword: '', isShort: false },
+    searchParams,
     { keyword: '', isShort: '' },
     onSearch
   );

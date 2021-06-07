@@ -21,8 +21,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [searchParams, setSearchParams] = React.useState();
-  const [searchParamsSaved, setSearchParamsSaved] = React.useState();
+  const [searchParams, setSearchParams] = React.useState({keyword: '', isShort: false});
+  const [searchParamsSaved, setSearchParamsSaved] = React.useState({keyword: '', isShort: false});
   const [result, setResult] = useSearchMovies(movies, searchParams);
   const [resultSaved, setResultSaved] = useSearchMovies(
     savedMovies,
@@ -66,7 +66,7 @@ function App() {
 
   // If user create his first search, load all movies
   React.useEffect(() => {
-    if ((searchParams !== undefined) & (movies.length === 0)) {
+    if ((searchParams.keyword !== '') & (movies.length === 0)) {
       showPreloader();
       moviesApi
         .getMovies()
@@ -84,7 +84,7 @@ function App() {
 
   // When no search params in SavedMovies, display all saved movies
   React.useEffect(() => {
-    if (searchParamsSaved === undefined)
+    if (searchParamsSaved.keyword === '')
       setResultSaved({ foundMovies: savedMovies, resultMessage: '' });
   }, [savedMovies, searchParamsSaved, setResultSaved]);
 
@@ -200,6 +200,7 @@ function App() {
             moviesList={result.foundMovies}
             savedMoviesList={savedMovies}
             message={result.resultMessage}
+            searchParams={searchParams}
             onSearch={handleSearch}
             onMovieSave={handleMovieSave}
             onMovieDelete={handleMovieDelete}
@@ -208,6 +209,7 @@ function App() {
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
           <SavedMovies
             moviesList={resultSaved.foundMovies}
+            searchParams={searchParamsSaved}
             onSearch={handleSearchSaved}
             onMovieDelete={handleMovieDelete}
             message={resultSaved.resultMessage}

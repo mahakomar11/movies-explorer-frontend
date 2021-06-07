@@ -4,12 +4,12 @@ import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Footer from '../Footer/Footer';
 
 function SavedMovies(props) {
-  const { moviesList, onSearch, onMovieDelete, message } = props;
+  const { moviesList, searchParams, onSearch, onMovieDelete, message } = props;
 
   return (
     <>
       <Header isLogined={true} />
-      <SearchForm onSearch={onSearch} />
+      <SearchForm onSearch={onSearch} searchParams={searchParams}/>
       <SavedMoviesCardList
         moviesList={moviesList}
         inSaved={true}
