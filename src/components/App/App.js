@@ -21,8 +21,14 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [searchParams, setSearchParams] = React.useState({keyword: '', isShort: false});
-  const [searchParamsSaved, setSearchParamsSaved] = React.useState({keyword: '', isShort: false});
+  const [searchParams, setSearchParams] = React.useState({
+    keyword: '',
+    isShort: false,
+  });
+  const [searchParamsSaved, setSearchParamsSaved] = React.useState({
+    keyword: '',
+    isShort: false,
+  });
   const [result, setResult] = useSearchMovies(movies, searchParams);
   const [resultSaved, setResultSaved] = useSearchMovies(
     savedMovies,
@@ -46,6 +52,23 @@ function App() {
         });
     }
   }, [isLogined]);
+
+  React.useEffect(() => {
+    const localParams = localStorage.getItem('searchParams');
+    const localParamsSaved = localStorage.getItem('searchParamsSaved');
+    if (localParams) setSearchParams(JSON.parse(localParams));
+    if (localParamsSaved) setSearchParamsSaved(JSON.parse(localParamsSaved));
+  }, []);
+
+  React.useEffect(() => {
+    if (searchParams.keyword !== '')
+      localStorage.setItem('searchParams', JSON.stringify(searchParams));
+    if (searchParamsSaved.keyword !== '')
+      localStorage.setItem(
+        'searchParamsSaved',
+        JSON.stringify(searchParamsSaved)
+      );
+  }, [searchParams, searchParamsSaved]);
 
   // If logined, get saved movies
   React.useEffect(() => {
@@ -103,7 +126,7 @@ function App() {
   }
 
   function handleLogout() {
-    localStorage.removeItem('jwt');
+    localStorage.clear();
     setIsLogined(false);
     mainApi.logoutUser();
     history.push('/');
