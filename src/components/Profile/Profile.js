@@ -2,7 +2,7 @@ import React from 'react';
 import './Profile.css';
 import Header from '../Header/Header';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import { useFormWithValidation } from '../ValidationForm/ValidationForm';
+import { useFormWithValidation } from '../FormWithValidation/FormWithValidation';
 
 function Profile(props) {
   const { onLogout, onSubmit } = props;

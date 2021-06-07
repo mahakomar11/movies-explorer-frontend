@@ -1,7 +1,7 @@
 import React from 'react';
 import './SignForm.css';
 import { Link } from 'react-router-dom';
-import { useFormWithValidation } from '../ValidationForm/ValidationForm';
+import { useFormWithValidation } from '../FormWithValidation/FormWithValidation';
 
 function SignForm(props) {
   const { place, onSubmit } = props;

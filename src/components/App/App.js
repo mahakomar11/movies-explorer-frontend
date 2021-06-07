@@ -24,10 +24,10 @@ function App() {
   const [searchParams, setSearchParams] = React.useState();
   const [searchParamsSaved, setSearchParamsSaved] = React.useState();
   const [result, setResult] = useSearchMovies(movies, searchParams);
-  const resultSaved = useSearchMovies(
+  const [resultSaved, setResultSaved] = useSearchMovies(
     savedMovies,
     searchParamsSaved
-  )[0];
+  );
 
   // Load jwt
   React.useEffect(() => {
@@ -81,6 +81,12 @@ function App() {
         .finally(() => hidePreloader());
     }
   }, [searchParams, movies, result, setResult]);
+
+  // When no search params in SavedMovies, display all saved movies
+  React.useEffect(() => {
+    if (searchParamsSaved === undefined)
+      setResultSaved({ foundMovies: savedMovies, resultMessage: '' });
+  }, [savedMovies, searchParamsSaved, setResultSaved]);
 
   function handleLogin(loginData) {
     mainApi
@@ -201,7 +207,7 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
           <SavedMovies
-            savedMoviesList={resultSaved.foundMovies}
+            moviesList={resultSaved.foundMovies}
             onSearch={handleSearchSaved}
             onMovieDelete={handleMovieDelete}
             message={resultSaved.resultMessage}

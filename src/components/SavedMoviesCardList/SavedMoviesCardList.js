@@ -2,12 +2,12 @@ import '../MoviesCardList/MoviesCardList';
 import MovieCard from '../MovieCard/MovieCard';
 
 function SavedMoviesCardList(props) {
-  const { savedMoviesList, onMovieDelete, message } = props;
+  const { moviesList, onMovieDelete, message } = props;
 
   return (
     <section className='movies-list'>
       <ul className='movies-list__grid'>
-        {savedMoviesList.map((movie) => {
+        {moviesList.map((movie) => {
           const movieCard = {
             ...movie,
             id: movie.movieId,

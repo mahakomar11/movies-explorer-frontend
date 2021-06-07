@@ -1,6 +1,6 @@
 import React from 'react';
 import './SearchForm.css';
-import { useFormWithValidation } from '../ValidationForm/ValidationForm';
+import { useFormWithValidation } from '../FormWithValidation/FormWithValidation';
 
 function SearchForm(props) {
   const { onSearch } = props;
