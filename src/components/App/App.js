@@ -12,20 +12,22 @@ import mainApi from '../../utils/MainApi';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
-import filterMovies from '../../utils/filter';
+import useSearchMovies from '../SearchMovies/SearchMovies';
+import { showPreloader, hidePreloader } from '../../utils/preloader';
 
 function App() {
   const history = useHistory();
   const [isLogined, setIsLogined] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({ name: '', email: '' });
-  const [moviesList, setMoviesList] = React.useState([]);
-  const [savedMoviesList, setSavedMoviesList] = React.useState([]);
-  const [foundMoviesList, setFoundMoviesList] = React.useState([]);
-  const [foundSavedMoviesList, setFoundSavedMoviesList] = React.useState([]);
-  const [searchMessage, setSearchMessage] = React.useState();
+  const [movies, setMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [searchParams, setSearchParams] = React.useState();
-  const [searchMessageSaved, setSearchMessageSaved] = React.useState();
   const [searchParamsSaved, setSearchParamsSaved] = React.useState();
+  const [result, setResult] = useSearchMovies(movies, searchParams);
+  const resultSaved = useSearchMovies(
+    savedMovies,
+    searchParamsSaved
+  )[0];
 
   // Load jwt
   React.useEffect(() => {
@@ -50,7 +52,7 @@ function App() {
     if (isLogined) {
       mainApi
         .getSavedMovies()
-        .then((data) => setSavedMoviesList(data))
+        .then((data) => setSavedMovies(data))
         .catch((err) => console.log(err));
     }
   }, [isLogined]);
@@ -64,52 +66,21 @@ function App() {
 
   // If user create his first search, load all movies
   React.useEffect(() => {
-    if (Boolean(searchParams) & (moviesList.length === 0)) {
+    if ((searchParams !== undefined) & (movies.length === 0)) {
+      showPreloader();
       moviesApi
         .getMovies()
-        .then((data) => setMoviesList(data))
-        .catch((err) =>
-          setSearchMessage(
-            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-          )
-        );
+        .then((data) => setMovies(data))
+        .catch(() =>
+          setResult({
+            ...result,
+            resultMessage:
+              'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
+          })
+        )
+        .finally(() => hidePreloader());
     }
-  }, [searchParams, moviesList]);
-
-  // Get search results
-  React.useEffect(() => {
-    if (Boolean(searchParams) & (moviesList.length !== 0)) {
-      setFoundMoviesList(
-        filterMovies(moviesList, searchParams.keyword, searchParams.isShort)
-      );
-      console.log(searchParams);
-    }
-  }, [searchParams, moviesList]);
-
-  // Update searchMessage and preloader
-  React.useEffect(() => {
-    if (
-      Boolean(searchParams) &
-      (foundMoviesList.length === 0) &
-      (moviesList.length !== 0)
-    )
-      setSearchMessage('Ничего не найдено');
-    else if (
-      Boolean(searchParams) &
-      (foundMoviesList.length === 0) &
-      (moviesList.length === 0)
-    )
-      document
-        .querySelector('.preloader')
-        .classList.remove('preloader_inactive');
-  }, [searchParams, foundMoviesList, moviesList]);
-
-  // Update searchMessageSaved
-  React.useEffect(() => {
-    if (Boolean(searchParamsSaved) & (foundSavedMoviesList.length === 0))
-      setSearchMessageSaved('Ничего не найдено');
-    else setSearchMessageSaved('');
-  }, [searchParamsSaved, foundSavedMoviesList]);
+  }, [searchParams, movies, result, setResult]);
 
   function handleLogin(loginData) {
     mainApi
@@ -150,13 +121,12 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleLoadFilms({keyword, isShort}) {
-    setSearchParams({ keyword: keyword, isShort: isShort });
+  function handleSearch({ keyword, isShort }) {
+    setSearchParams({ keyword, isShort });
   }
 
-  function handleLoadSavedFilms({keyword, isShort}) {
-    setSearchParamsSaved({ keyword: keyword, isShort: isShort });
-    setFoundSavedMoviesList(filterMovies(savedMoviesList, keyword, isShort));
+  function handleSearchSaved({ keyword, isShort }) {
+    setSearchParamsSaved({ keyword, isShort });
   }
 
   function handleMovieSave(movieCard) {
@@ -188,20 +158,20 @@ function App() {
         nameRU,
         nameEN,
       })
-      .then((data) => setSavedMoviesList([...savedMoviesList, data]))
+      .then((data) => setSavedMovies([...savedMovies, data]))
       .catch((err) => console.log(err));
   }
 
   function handleMovieDelete(movieCard) {
-    const movieToDelete = savedMoviesList.find(
+    const movieToDelete = savedMovies.find(
       (savedMovie) => savedMovie.movieId === movieCard.id
     );
 
     mainApi
       .deleteMovie(movieToDelete._id)
       .then((data) =>
-        setSavedMoviesList(
-          savedMoviesList.filter((savedMovie) => savedMovie !== movieToDelete)
+        setSavedMovies(
+          savedMovies.filter((savedMovie) => savedMovie !== movieToDelete)
         )
       )
       .catch((err) => console.log(err));
@@ -221,20 +191,20 @@ function App() {
         </Route>
         <ProtectedRoute exact path='/movies' isLogined={isLogined}>
           <Movies
-            moviesList={foundMoviesList}
-            savedMoviesList={savedMoviesList}
-            onSearch={handleLoadFilms}
+            moviesList={result.foundMovies}
+            savedMoviesList={savedMovies}
+            message={result.resultMessage}
+            onSearch={handleSearch}
             onMovieSave={handleMovieSave}
             onMovieDelete={handleMovieDelete}
-            message={searchMessage}
           />
         </ProtectedRoute>
         <ProtectedRoute exact path='/saved-movies' isLogined={isLogined}>
           <SavedMovies
-            savedMoviesList={foundSavedMoviesList}
-            onSearch={handleLoadSavedFilms}
+            savedMoviesList={resultSaved.foundMovies}
+            onSearch={handleSearchSaved}
             onMovieDelete={handleMovieDelete}
-            message={searchMessageSaved}
+            message={resultSaved.resultMessage}
           />
         </ProtectedRoute>
         <ProtectedRoute exact path='/profile' isLogined={isLogined}>
