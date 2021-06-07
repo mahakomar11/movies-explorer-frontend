@@ -14,6 +14,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import useSearchMovies from '../SearchMovies/SearchMovies';
 import { showPreloader, hidePreloader } from '../../utils/preloader';
+import InfoTooltip from '../InfoTooltip/InfoTolltip';
 
 function App() {
   const history = useHistory();
@@ -34,6 +35,11 @@ function App() {
     savedMovies,
     searchParamsSaved
   );
+  const [popupState, setPopupState] = React.useState({
+    ok: true,
+    isOpen: false,
+    message: '',
+  });
 
   // Load jwt
   React.useEffect(() => {
@@ -47,9 +53,9 @@ function App() {
             setIsLogined(true);
           }
         })
-        .catch((err) => {
-          console.log(err.message);
-        });
+        .catch((err) =>
+          setPopupState({ ok: false, isOpen: true, message: err.message })
+        );
     }
   }, [isLogined]);
 
@@ -76,7 +82,9 @@ function App() {
       mainApi
         .getSavedMovies()
         .then((data) => setSavedMovies(data))
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          setPopupState({ ok: false, isOpen: true, message: err.message })
+        );
     }
   }, [isLogined]);
 
@@ -120,9 +128,9 @@ function App() {
         localStorage.setItem('jwt', data.token);
         history.push('/movies');
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((err) =>
+        setPopupState({ ok: false, isOpen: true, message: err.message })
+      );
   }
 
   function handleLogout() {
@@ -136,18 +144,28 @@ function App() {
     mainApi
       .registerUser(registerData)
       .then((data) => {
+        setPopupState({
+          ok: true,
+          isOpen: true,
+          message: 'Вы успешно зарегистрировались',
+        });
         history.push('/signin');
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((err) =>
+        setPopupState({ ok: false, isOpen: true, message: err.message })
+      );
   }
 
   function handleEditProfile(newProfileData) {
     mainApi
       .patchUserInfo(newProfileData)
-      .then((data) => setCurrentUser(data))
-      .catch((err) => console.log(err));
+      .then((data) => {
+        setCurrentUser(data);
+        setPopupState({ ok: true, isOpen: true, message: 'Профиль изменён!' });
+      })
+      .catch((err) =>
+        setPopupState({ ok: false, isOpen: true, message: err.message })
+      );
   }
 
   function handleSearch({ keyword, isShort }) {
@@ -188,7 +206,9 @@ function App() {
         nameEN,
       })
       .then((data) => setSavedMovies([...savedMovies, data]))
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        setPopupState({ ok: false, isOpen: true, message: err.message })
+      );
   }
 
   function handleMovieDelete(movieCard) {
@@ -203,7 +223,9 @@ function App() {
           savedMovies.filter((savedMovie) => savedMovie !== movieToDelete)
         )
       )
-      .catch((err) => console.log(err));
+      .catch((err) =>
+        setPopupState({ ok: false, isOpen: true, message: err.message })
+      );
   }
 
   return (
@@ -245,6 +267,14 @@ function App() {
           <PageNotFound />
         </Route>
       </Switch>
+      <InfoTooltip
+        ok={popupState.ok}
+        isOpen={popupState.isOpen}
+        onClose={() => {
+          setPopupState({ ...popupState, isOpen: false });
+        }}
+        message={popupState.message}
+      />
     </CurrentUserContext.Provider>
   );
 }

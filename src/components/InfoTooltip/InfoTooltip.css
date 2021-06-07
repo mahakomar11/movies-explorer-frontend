@@ -1,0 +1,100 @@
+.popup {
+  width: 100vw;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.7s ease, visibility 0s linear 0.7s;
+}
+
+.popup_opened {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.popup__sign {
+  margin-top: 60px;
+}
+
+.popup__container {
+  width: 430px;
+  background: #ffffff;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: inherit;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__container {
+    width: 88%;
+  }
+}
+
+.popup__message {
+  margin: 32px 36px 60px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+  color: #000000;
+}
+
+.popup__close-button {
+  position: absolute;
+  padding: 0;
+  top: -44px;
+  right: -44px;
+  border: none;
+  width: 47px;
+  height: 47px;
+  background-color: transparent;
+  cursor: pointer;
+  transition: ease-out 0.5s;
+}
+
+.popup__close-button::before,
+.popup__close-button::after {
+  position: absolute;
+  top: calc(47px / 2);
+  left: 0;
+  content: ' ';
+  height: 4px;
+  width: 40.7px;
+  background-color: white;
+}
+
+.popup__close-button::before {
+  transform: rotate(45deg);
+}
+
+.popup__close-button::after {
+  transform: rotate(135deg);
+}
+
+.popup__close-button:hover {
+  opacity: 0.6;
+  transition: ease-out 0.5s;
+}
+
+.popup__close-button:active {
+  outline: none;
+}
+
+@media screen and (max-width: 540px) {
+  .popup__close-button::after,
+  .popup__close-button::before {
+    height: 3px;
+    width: 39px;
+  }
+}
