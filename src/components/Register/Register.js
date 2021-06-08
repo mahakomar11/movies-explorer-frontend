@@ -1,12 +1,14 @@
 import SignTop from '../SignTop/SignTop';
 import SignForm from '../SignForm/SignForm';
 
-function Register() {
+function Register(props) {
+  const {onRegister} = props;
+
   return (
-    <page>
+    <>
       <SignTop message='Добро пожаловать!' />
-      <SignForm place='signup' />
-    </page>
+      <SignForm place='signup' onSubmit={onRegister}/>
+    </>
   );
 }
 

@@ -4,20 +4,35 @@ import './LoginedNavigation.css';
 function LoginedNavigation() {
   const closeNav = () => {
     document.querySelector('.logined-nav').classList.add('logined-nav_hidden');
-  }
+  };
 
   return (
     <nav className='logined-nav logined-nav_hidden'>
-      <Link to='/' className='logined-nav__link logined-nav__link_hidden'>
+      <Link
+        to='/'
+        className={`logined-nav__link logined-nav__link_hidden ${
+          window.location.pathname === '/' &&
+          'logined-nav__link_activated'
+        }`}
+      >
         Главная
       </Link>
       <Link
         to='/movies'
-        className='logined-nav__link logined-nav__link_activated'
+        className={`logined-nav__link ${
+          window.location.pathname === '/movies' &&
+          'logined-nav__link_activated'
+        }`}
       >
         Фильмы
       </Link>
-      <Link to='/saved-movies' className='logined-nav__link'>
+      <Link
+        to='/saved-movies'
+        className={`logined-nav__link ${
+          window.location.pathname === '/saved-movies' &&
+          'logined-nav__link_activated'
+        }`}
+      >
         Сохранённые фильмы
       </Link>
       <Link

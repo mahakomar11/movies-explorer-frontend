@@ -1,14 +1,29 @@
+import React from 'react';
 import './SignForm.css';
 import { Link } from 'react-router-dom';
+import { useFormWithValidation } from '../FormWithValidation/FormWithValidation';
 
 function SignForm(props) {
+  const { place, onSubmit } = props;
+
+  const initialValues =
+    place === 'signup'
+      ? { name: '', email: '', password: '' }
+      : { email: '', password: '' };
+
+  const initialErrors =
+    place === 'signup'
+      ? { name: '', email: '', password: '' }
+      : { email: '', password: '' };
+
+  const { values, errors, isValid, handleChange, handleSubmit } =
+    useFormWithValidation(initialValues, initialErrors, onSubmit);
+
   const message =
-    props.place === 'signup'
-      ? 'Уже зарегистрированы? '
-      : 'Ещё не зарегистрированы? ';
+    place === 'signup' ? 'Уже зарегистрированы? ' : 'Ещё не зарегистрированы? ';
 
   const link =
-    props.place === 'signup' ? (
+    place === 'signup' ? (
       <Link to='/signin' className='sign-form__link'>
         Войти
       </Link>
@@ -19,11 +34,11 @@ function SignForm(props) {
     );
 
   return (
-    <form className='sign-form'>
+    <form className='sign-form' onSubmit={handleSubmit}>
       <fieldset className='sign-form__fieldset'>
-        {props.place === 'signup' && (
+        {place === 'signup' && (
           <>
-            <label className='sign-form__label' for='name'>
+            <label className='sign-form__label' htmlFor='name'>
               Имя
             </label>
             <input
@@ -31,14 +46,18 @@ function SignForm(props) {
               type='text'
               name='name'
               id='name'
+              value={values.name}
               minLength={2}
               maxLength={40}
               required
+              onChange={handleChange}
             />
-            <span className='sign-form__error-message' id='name-error'></span>
+            <span className={`sign-form__error-message`} id='name-error'>
+              {errors.name}
+            </span>
           </>
         )}
-        <label className='sign-form__label' for='email'>
+        <label className='sign-form__label' htmlFor='email'>
           E-mail
         </label>
         <input
@@ -46,11 +65,15 @@ function SignForm(props) {
           type='email'
           name='email'
           id='email'
+          value={values.email}
           minLength={2}
           required
+          onChange={handleChange}
         />
-        <span className='sign-form__error-message' id='email-error'></span>
-        <label className='sign-form__label' for='password'>
+        <span className='sign-form__error-message' id='email-error'>
+          {errors.email}
+        </span>
+        <label className='sign-form__label' htmlFor='password'>
           Пароль
         </label>
         <input
@@ -58,14 +81,18 @@ function SignForm(props) {
           type='password'
           name='password'
           id='password'
+          value={values.password}
           minLength={8}
           required
+          onChange={handleChange}
         />
-        <span className='sign-form__error-message' id='password-error'></span>
+        <span className='sign-form__error-message' id='password-error'>
+          {errors.password}
+        </span>
       </fieldset>
       <fieldset className='sign-form__fieldset'>
-        <button className='sign-form__button' type='submit'>
-          {props.place === 'signup' ? 'Зарегистрироваться' : 'Войти'}
+        <button className='sign-form__button' type='submit' disabled={!isValid}>
+          {place === 'signup' ? 'Зарегистрироваться' : 'Войти'}
         </button>
         <p className='sign-form__message'>
           {message}

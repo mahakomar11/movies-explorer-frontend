@@ -1,12 +1,14 @@
 import SignTop from '../SignTop/SignTop';
 import SignForm from '../SignForm/SignForm';
 
-function Login() {
+function Login(props) {
+  const { onLogin } = props;
+
   return (
-    <page>
+    <>
       <SignTop message='Рады видеть!' />
-      <SignForm place='signin' />
-    </page>
+      <SignForm place='signin' onSubmit={onLogin}/>
+    </>
   );
 }
 

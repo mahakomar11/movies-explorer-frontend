@@ -7,10 +7,11 @@ import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import './Main.css'
 
-function Main() {
+function Main(props) {
+  const {isLogined} = props;
   return (
     <>
-      <Promo />
+      <Promo isLogined={isLogined}/>
       <NavTab />
       <AboutProject />
       <Techs />

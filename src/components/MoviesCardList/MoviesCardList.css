@@ -70,9 +70,15 @@
 
 .movies-list__filler {
   min-height: 230px;
+  margin: 0;
+  text-align: center;
 }
 
-.movies-list__message {
+/* .movies-list__message {
   text-align: center;
   margin: 0 0 calc(100vh - 572px);
 }
+
+.movies-list__message_visible {
+  display: block;
+} */

@@ -1,15 +1,21 @@
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import Footer from '../Footer/Footer';
-import { savedMoviesCards } from '../../temporary/moviesCards';
 
-function SavedMovies() {
+function SavedMovies(props) {
+  const { moviesList, searchParams, onSearch, onMovieDelete, message } = props;
+
   return (
     <>
       <Header isLogined={true} />
-      <SearchForm />
-      <MoviesCardList moviesCards={savedMoviesCards} inSaved={true} />
+      <SearchForm onSearch={onSearch} searchParams={searchParams}/>
+      <SavedMoviesCardList
+        moviesList={moviesList}
+        inSaved={true}
+        onMovieDelete={onMovieDelete}
+        message={message}
+      />
       <Footer />
     </>
   );
