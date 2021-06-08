@@ -83,7 +83,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-  baseUrl: 'http://localhost:80',
+  baseUrl: 'https://api.movies.mahakomar.nomoredomains.icu',
   headers: {
     'Content-type': 'application/json',
   },
