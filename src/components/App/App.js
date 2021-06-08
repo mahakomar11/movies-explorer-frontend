@@ -37,8 +37,8 @@ function App() {
   );
   const [popupState, setPopupState] = React.useState({
     ok: true,
-    isOpen: false,
-    message: '',
+    isOpen: true,
+    message: 'Это сообщение',
   });
 
   // Load jwt
